@@ -1,13 +1,21 @@
-body{
-    background-color: blueviolet;
-}
+/* home.html styling ------------------------------------------------------------------------ */
 
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
 h1{
     color: red;
 }
 .block {
     background-color: white;
-    border-radius: 50px;
+    border-radius: 15px;
     padding: 12vh; /* Keeps the padding */
     display: flex;
     align-items: center;
@@ -31,8 +39,81 @@ input{
     background-color: rgb(224, 222, 222);
     padding-left: 8px;
 }
-
 .join-btn, .create-btn{
     width: 35vh;
-    height: 4vh;
+    height: 5vh;
+    background-color: blueviolet;
+    color: white;
+    border-radius: 8px;
+    border: none;
+}
+.join-btn:hover, .create-btn:hover{
+    background-color: darkviolet;
+}
+
+
+
+/* room.html styling ------------------------------------------------------------------------ */
+
+
+.outer-block {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.outer-block h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+.messages {
+    background-color: #f1f1f1;
+    border-radius: 15px;
+    padding: 15px;
+    height: 300px;
+    width: 100%;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.inputs {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.inputs input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-right: 10px;
+    outline: none;
+}
+.inputs input:focus {
+    border-color: blueviolet;
+}
+.inputs button {
+    background-color: blueviolet;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.inputs button:hover {
+    background-color: darkviolet;
+}
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: blueviolet;
+    border-radius: 10px;
 }

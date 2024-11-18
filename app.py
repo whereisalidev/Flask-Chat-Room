@@ -6,7 +6,7 @@ import random
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "JustFormality"
+app.config["SECRET_KEY"] = "JustFormality_otherwise_it_gives_error"
 socketio = SocketIO(app)
 
 rooms = {}
@@ -18,13 +18,10 @@ def home():
         code = request.form.get('code')
         join = request.form.get('join', False)
         create = request.form.get('create', False)
-        print("CREATE value returned -> ", create)
-
 
         #it means person is creating a room:
         if create != False:
             generated_code = generate_room_code(4)
-            print("CODE -> ", generated_code)
             rooms[generated_code] = {'members':0, 'messages':[]}
             session['room'] = generated_code
             session['name'] = name
@@ -40,9 +37,9 @@ def home():
             session['room'] = code
             session['name'] = name
             return redirect(url_for('room'))
-        
 
     return render_template('home.html')
+
 
 
 @app.route('/room')
@@ -54,9 +51,13 @@ def room():
     return render_template('room.html', code=room, messages=rooms[room]['messages'])
 
 
-@socketio.on()
-def message():
-    
+
+# @socketio.on()
+# def message():
+#     pass
+
+
+
 
 def generate_room_code(length):
     while True:
