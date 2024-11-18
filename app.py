@@ -21,7 +21,6 @@ def home():
         print("CREATE value returned -> ", create)
 
 
-
         #it means person is creating a room:
         if create != False:
             generated_code = generate_room_code(4)
@@ -55,6 +54,9 @@ def room():
     return render_template('room.html', code=room, messages=rooms[room]['messages'])
 
 
+@socketio.on()
+def message():
+    
 def generate_room_code(length):
     while True:
         code = ""
