@@ -13,6 +13,7 @@ rooms = {}
 
 @app.route("/", methods=["POST", "GET"])
 def home():
+    session.clear()
     if request.method == 'POST':
         name = request.form.get('name')
         code = request.form.get('code')
@@ -66,6 +67,8 @@ def message(data):
     rooms[room]["messages"].append(content)
     print(f"{session.get('name')} said: {data['data']}")
 
+
+
 @socketio.on("connect")
 def connect(auth):
     room = session.get("room")
@@ -80,6 +83,8 @@ def connect(auth):
     send({"name": name, "message": "has entered the room"}, to=room)
     rooms[room]["members"] += 1
     print(f"{name} joined room {room}")
+
+
 
 @socketio.on("disconnect")
 def disconnect():
