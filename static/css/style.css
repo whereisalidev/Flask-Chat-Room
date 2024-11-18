@@ -29,6 +29,7 @@ input{
     outline: none;
     border: none;
     background-color: rgb(224, 222, 222);
+    padding-left: 8px;
 }
 
 .join-btn, .create-btn{
