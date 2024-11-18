@@ -27,6 +27,8 @@ def home():
             generated_code = generate_room_code(4)
             print(generated_code)
             rooms[generated_code] = {'members':0, 'messages':[]}
+            session['room'] = generated_code
+            session['name'] = name
 
 
 
