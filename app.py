@@ -11,6 +11,10 @@ socketio = SocketIO(app)
 
 @app.route("/", methods=["POST", "GET"])
 def home():
+    if request.method == 'POST':
+        
+
+
     return render_template('home.html')
 
 
