@@ -33,7 +33,7 @@ def home():
         #it means person is joining a room, then first check if the given code room exists or not?:
         elif code not in rooms:
             print('Room does not exist.')
-            return render_template('home.html', error='Room does not exist')
+            return render_template('home.html', error='Room does not exist', name=name, code=code)
 
         elif join:
             #assign the session with name room to given code and go to room page

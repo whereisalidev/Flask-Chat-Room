@@ -8,11 +8,16 @@
             <h1>Chat Room</h1>
             <div class="name-block">
                 <label for="name">Name: </label>
-                <input type="text" name="name" placeholder="Enter your name" required>
+                <input type="text" name="name" placeholder="Enter your name" required value={{name}}>
             </div>
             <div class="join-block">
                 <label for="Code">Code: </label>
-                <input type="text" name="code" placeholder="Enter room code" required><br><br>
+                <input type="text" name="code" placeholder="Enter room code" required value={{code}}><br>
+                {% if  error %}
+                <br>
+                <small style="color:red">{{ error }}</small>
+                {% endif %}
+                <br><br>
                 <button type="submit" name="join" class="join-btn">Join Room</button>
             </div>
             <br><br>
