@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, session
+from flask import Flask, request, redirect, render_template, session, url_for
 from flask_socketio import SocketIO
 from string import ascii_uppercase
 import random
@@ -29,10 +29,14 @@ def home():
             rooms[generated_code] = {'members':0, 'messages':[]}
             session['room'] = generated_code
             session['name'] = name
-
-
+            return redirect(url_for('room'))
 
     return render_template('home.html')
+
+
+@app.route('/room')
+def room():
+    pass
 
 
 def generate_room_code(length):
