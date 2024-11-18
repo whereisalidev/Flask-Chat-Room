@@ -52,9 +52,9 @@ def room():
 
 
 
-# @socketio.on()
-# def message():
-#     pass
+@socketio.on()
+def message():
+    pass
 
 
 
