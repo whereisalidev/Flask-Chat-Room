@@ -57,6 +57,7 @@ def room():
 @socketio.on()
 def message():
     
+
 def generate_room_code(length):
     while True:
         code = ""
