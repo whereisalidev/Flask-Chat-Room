@@ -10,12 +10,8 @@ body {
     align-items: center;
     height: 100vh;
 }
-/* h1{
-    color: red;
-} */
 
-
-#icon-nd-title{
+#icon-nd-title {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,42 +19,70 @@ body {
         margin-left: 6px;
     }
 }
+
 .block {
     background-color: white;
-    border-radius: 15px;
-    padding: 12vh; /* Keeps the padding */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+    width: 80%; 
+    max-width: 500px; 
+    padding: 50px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
 }
-.name-block, .join-block, .create-block{
+
+form {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.name-block, .join-block, .create-block {
     margin-top: 3vh;
 }
-input{
+
+input {
     height: 5vh;
-    width: 30vh;
+    width: 100%;
+    max-width: 300px; 
     border-radius: 10px;
     outline: none;
     border: none;
     background-color: rgb(224, 222, 222);
     padding-left: 8px;
 }
-.join-btn, .create-btn{
-    width: 35vh;
+
+.join-btn, .create-btn {
+    width: 100%;
+    max-width: 350px;
     height: 5vh;
     background-color: blueviolet;
     color: white;
     border-radius: 8px;
     border: none;
+    cursor: pointer;
 }
-.join-btn:hover, .create-btn:hover{
+
+.join-btn:hover, .create-btn:hover {
     background-color: darkviolet;
+}
+
+@media screen and (max-width: 768px) {
+    .block {
+        width: 90%; 
+    }
+
+    .join-btn, .create-btn {
+        width: 90%; 
+    }
+
+    input {
+        width: 90%; 
+    }
 }
 
 
@@ -70,7 +94,7 @@ input{
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 110vh;
+    max-width: 500px; 
     max-width: 90%;
     padding: 20px;
     display: flex;
@@ -95,13 +119,10 @@ input{
 .inputs {
     display: flex;
     align-items: center;
-    width: 100%;
 }
-#image-input{
-    width: 15px;
-}
+
 .inputs input {
-    flex-grow: 2;
+    width: 100vh;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
