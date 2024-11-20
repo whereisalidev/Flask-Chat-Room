@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "JustFormality_otherwise_it_gives_error"
 app.config['DEBUG'] = False
 app.config['ENV'] = 'production'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*", logger=True, engineio_logger=True, transports=['websocket', 'polling'])
 
 rooms = {}
 
