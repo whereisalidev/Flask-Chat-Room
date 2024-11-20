@@ -61,12 +61,11 @@ def message(data):
     
     content = {
         "name": session.get("name"),
-        "message": data["data"],
-        "data": data["data"]
+        "message": data["data"]
     }
     send(content, to=room)
     rooms[room]["messages"].append(content)
-    # print(f"{session.get('name')} said: {data['data']}")
+    print(f"{session.get('name')} said: {data['data']}")
 
 
 

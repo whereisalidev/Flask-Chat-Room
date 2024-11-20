@@ -71,6 +71,7 @@ input{
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     width: 110vh;
+    max-width: 90%;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -141,9 +142,9 @@ input{
 }
 
 .muted {
-    font-size: 0.8em; /* Smaller font size */
-    color: gray; /* Gray color */
+    font-size: 0.8em; 
+    color: gray; 
     margin-left: 10px;
     text-align: right;
-    white-space: nowrap; /* Prevent wrapping */
+    white-space: nowrap; 
 }
