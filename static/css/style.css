@@ -8,10 +8,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 100vh;
 }
-h1{
+/* h1{
     color: red;
+} */
+
+
+#icon-nd-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h1 {
+        margin-left: 6px;
+    }
 }
 .block {
     background-color: white;
@@ -60,8 +70,7 @@ input{
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 400px;
-    max-width: 90%;
+    width: 110vh;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -87,8 +96,11 @@ input{
     align-items: center;
     width: 100%;
 }
+#image-input{
+    width: 15px;
+}
 .inputs input {
-    flex-grow: 1;
+    flex-grow: 2;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -116,4 +128,22 @@ input{
 ::-webkit-scrollbar-thumb {
     background-color: blueviolet;
     border-radius: 10px;
+}
+.text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.text strong {
+    font-weight: bold;
+}
+
+.muted {
+    font-size: 0.8em; /* Smaller font size */
+    color: gray; /* Gray color */
+    margin-left: 10px;
+    text-align: right;
+    white-space: nowrap; /* Prevent wrapping */
 }

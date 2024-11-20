@@ -1,48 +1,107 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
 
 <div class="outer-block">
-  <h2>Chat Room: {{code}}</h2>
-  <div class="messages" id="messages"></div>
+  <h2>Chat Room: {{ code }}</h2>
+  <div class="messages" id="messages">
+    <!-- Render past messages from the server -->
+    {% for msg in messages %}
+      <div class="text">
+        <span>
+          <strong>{{ msg.name }}</strong>:
+          {% if msg.type == "text" %}
+            {{ msg.data }}
+          {% elif msg.type == "image" %}
+            <br />
+            <img src="{{ msg.data }}" alt="Shared Image" style="max-width: 100%; border-radius: 8px; margin-top: 10px;" />
+          {% endif %}
+        </span>
+        <span class="muted" style="float: right; font-size: 0.8em; color: gray;">
+          {{ msg.timestamp }}
+        </span>
+      </div>
+      <hr />
+    {% endfor %}
+  </div>
+
   <div class="inputs">
-    <input type="text" rows="3" placeholder="Message" name="message" id="message"/>
+    <input type="text" placeholder="Message" name="message" id="message" />
+    <input type="file" id="image-input" accept="image/*" />
     <button type="button" name="send" id="send-btn" onClick="sendMessage()">Send</button>
   </div>
 </div>
 
 <script type="text/javascript">
-  var socketio = io();
-
+  const socketio = io();
   const messages = document.getElementById("messages");
 
+  // Function to create a text message
   const createMessage = (name, msg) => {
     const content = `
-    <div class="text">
+      <div class="text">
         <span>
-            <strong>${name}</strong>: ${msg}
+          <strong>${name}</strong>: ${msg}
         </span>
-        <span class="muted">
-            ${new Date().toLocaleString()}
+        <span class="muted" style="float: right; font-size: 0.8em; color: gray;">
+          ${new Date().toLocaleString()}
         </span>
-    </div>
+      </div>
+      <hr>
     `;
     messages.innerHTML += content;
   };
 
+  // Function to create an image message
+  const createImageMessage = (name, imgSrc) => {
+    const content = `
+      <div class="text">
+        <span>
+          <strong>${name}</strong>:
+        </span>
+        <br />
+        <img src="${imgSrc}" alt="Shared Image" style="max-width: 100%; border-radius: 8px; margin-top: 10px;" />
+        <span class="muted" style="float: right; font-size: 0.8em; color: gray;">
+          ${new Date().toLocaleString()}
+        </span>
+      </div>
+      <hr>
+    `;
+    messages.innerHTML += content;
+  };
+
+  // Handle receiving messages
   socketio.on("message", (data) => {
-    createMessage(data.name, data.message);
+    if (data.type === "text") {
+      createMessage(data.name, data.data);
+    } else if (data.type === "image") {
+      createImageMessage(data.name, data.data);
+    }
   });
 
+  // Send a message or image
   const sendMessage = () => {
-    const message = document.getElementById("message");
-    if (message.value == "") return;
-    socketio.emit("message", { data: message.value });
-    message.value = "";
+    const messageInput = document.getElementById("message");
+    const imageInput = document.getElementById("image-input");
+
+    // Send text message
+    if (messageInput.value.trim() !== "") {
+      socketio.emit("message", { type: "text", data: messageInput.value });
+      messageInput.value = ""; // Clear the input field
+    }
+
+    // Send image
+    if (imageInput.files.length > 0) {
+      const file = imageInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        socketio.emit("message", { type: "image", data: reader.result });
+      };
+      reader.readAsDataURL(file);
+
+      // Clear the file input
+      imageInput.value = "";
+    }
   };
 </script>
-{% for msg in messages %}
-  <script type="text/javascript">
-    createMessage("{{msg.name}}", "{{msg.message}}");
-  </script>
-{% endfor %}
 {% endblock content %}
