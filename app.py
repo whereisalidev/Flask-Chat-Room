@@ -7,6 +7,8 @@ import random
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "JustFormality_otherwise_it_gives_error"
+app.config['DEBUG'] = False
+app.config['ENV'] = 'production'
 socketio = SocketIO(app)
 
 rooms = {}
@@ -114,4 +116,5 @@ def generate_room_code(length):
     return code
 
 if __name__ == '__main__':
-    socketio.run(app, allow_unsafe_werkzeug=True)
+    # socketio.run(app, allow_unsafe_werkzeug=True)
+    app.run(app)
