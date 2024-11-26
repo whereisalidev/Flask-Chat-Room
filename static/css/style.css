@@ -122,15 +122,16 @@ input {
 }
 
 .inputs input {
-    width: 100vh;
-    padding: 10px;
+    width: 33vh;
+    /* padding: 10px; */
+    margin-left: 1vh;
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-right: 10px;
     outline: none;
 }
 .inputs input:focus {
-    border-color: blueviolet;
+    border-color: #8a2be2;
 }
 .inputs button {
     background-color: blueviolet;

@@ -14,12 +14,15 @@
             </div>
             <br>
             <div class="name-block">
-                <label for="name">Name: </label>
                 <input type="text" name="name" placeholder="Enter your name" required value={{name}}>
             </div>
+            <br>
+            <button type="submit" name="create" class="create-btn">Create Room</button>
+            <br><br>
+            or
+            <br>
             <div class="join-block">
-                <label for="Code">Code: </label>
-                <input type="text" name="code" placeholder="Enter room code" value={{code}}><br>
+                <input type="text" name="code" placeholder="Enter room code to join" value={{code}}><br>
                 {% if  error %}
                 <br>
                 <small style="color:red">{{ error }}</small>
@@ -27,10 +30,7 @@
                 <br><br>
                 <button type="submit" name="join" class="join-btn">Join Room</button>
             </div>
-            <br><br>
-            <hr>
-            <br><br>
-            <button type="submit" name="create" class="create-btn">Create Room</button>
+            
         </form>
     </div>
 </body>
