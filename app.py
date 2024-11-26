@@ -107,6 +107,11 @@ def disconnect():
 
 
 
+@socketio.on_error()
+def handle_error(e):
+    app.logger.error(f"WebSocket error: {e}")
+    
+
 def generate_room_code(length):
     while True:
         code = ""
