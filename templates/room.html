@@ -75,11 +75,35 @@
   const sendImage = (fileInput) => {
     const file = fileInput.files[0];
     if (!file) return;
-
+  
     const reader = new FileReader();
     reader.onload = () => {
-      const base64Image = reader.result;
-      socketio.emit("message", { data: base64Image, isImage: true });
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const maxDimension = 500; // Adjust to your needs
+        let width = img.width;
+        let height = img.height;
+  
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = (maxDimension / width) * height;
+            width = maxDimension;
+          } else {
+            width = (maxDimension / height) * width;
+            height = maxDimension;
+          }
+        }
+  
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+  
+        const resizedImage = canvas.toDataURL("image/jpeg", 0.8); // Adjust quality if needed
+        socketio.emit("message", { data: resizedImage, isImage: true });
+      };
+      img.src = reader.result;
     };
     reader.readAsDataURL(file);
   };
