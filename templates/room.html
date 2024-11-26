@@ -59,19 +59,11 @@
     }
     messages.innerHTML += content;
   };
-
+  
   socketio.on("message", (data) => {
     createMessage(data.name, data.message, data.isImage);
   });
-
-  const sendMessage = () => {
-    const message = document.getElementById("message");
-    if (message.value.trim() !== "") {
-      socketio.emit("message", { data: message.value, isImage: false });
-      message.value = "";
-    }
-  };
-
+  
   const sendImage = (fileInput) => {
     const file = fileInput.files[0];
     if (!file) return;
@@ -81,7 +73,7 @@
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement("canvas");
-        const maxDimension = 500; // Adjust to your needs
+        const maxDimension = 500; 
         let width = img.width;
         let height = img.height;
   
@@ -100,24 +92,29 @@
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, width, height);
   
-        const resizedImage = canvas.toDataURL("image/jpeg", 0.8); // Adjust quality if needed
+        const resizedImage = canvas.toDataURL("image/jpeg", 0.8); 
         socketio.emit("message", { data: resizedImage, isImage: true });
       };
       img.src = reader.result;
     };
     reader.readAsDataURL(file);
   };
-
-  // Attach listener to the file input
+  
   document.getElementById("file-input").addEventListener("change", function () {
     sendImage(this);
   });
+  
 </script>
 
 
 {% for msg in messages %}
   <script type="text/javascript">
-    createMessage("{{msg.name}}", "{{msg.message}}");
+    if ("{{ msg.message }}".startsWith("data:image")) {
+      createMessage("{{ msg.name }}", "{{ msg.message }}", true);
+    } else {
+      createMessage("{{ msg.name }}", "{{ msg.message }}", false);
+    }
   </script>
 {% endfor %}
+
 {% endblock content %}
