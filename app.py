@@ -60,14 +60,17 @@ def message(data):
     room = session.get("room")
     if room not in rooms:
         return 
-    
+
     content = {
         "name": session.get("name"),
-        "message": data["data"]
+        "message": data["data"],
+        "isImage": data.get("isImage", False) 
     }
+
     send(content, to=room)
     rooms[room]["messages"].append(content)
-    print(f"{session.get('name')} said: {data['data']}")
+    print(f"{session.get('name')} sent: {'Image' if content['isImage'] else content['message']}")
+
 
 
 

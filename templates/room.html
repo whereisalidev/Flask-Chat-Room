@@ -6,7 +6,23 @@
   <div class="messages" id="messages"></div>
   <div class="inputs">
     <input type="text" rows="3" placeholder="Message" name="message" id="message"/>
-    <span class="material-symbols-outlined" style="color: blueviolet">image</span>
+    
+    <input 
+      type="file" 
+      id="file-input" 
+      name="id"  
+      accept="image/png,image/jpeg,image/jpg" 
+      capture="filesystem" 
+      style="display: none;" 
+    >
+    
+    <img 
+      style="height: 4vh; cursor: pointer;" 
+      src="{{ url_for('static', filename='assets/gallery.png') }}" 
+      alt="gallery" 
+      onClick="document.getElementById('file-input').click();" 
+    />
+    
     <button type="button" name="send" id="send-btn" onClick="sendMessage()">Send</button>
   </div>
 </div>
@@ -16,31 +32,66 @@
 
   const messages = document.getElementById("messages");
 
-  const createMessage = (name, msg) => {
-    const content = `
-    <div class="text">
-        <span>
-            <strong>${name}</strong>: ${msg}
-        </span>
-        <span class="muted">
-            ${new Date().toLocaleString()}
-        </span>
-    </div>
-    `;
+  const createMessage = (name, msg, isImage = false) => {
+    let content;
+    if (isImage) {
+      content = `
+      <div class="text">
+          <span>
+              <strong>${name}</strong>: 
+              <img src="${msg}" alt="Image" style="max-height: 200px; max-width: 200px; display: block; margin-top: 5px;"/>
+          </span>
+          <span class="muted">
+              ${new Date().toLocaleString()}
+          </span>
+      </div>
+      `;
+    } else {
+      content = `
+      <div class="text">
+          <span>
+              <strong>${name}</strong>: ${msg}
+          </span>
+          <span class="muted">
+              ${new Date().toLocaleString()}
+          </span>
+      </div>
+      `;
+    }
     messages.innerHTML += content;
   };
 
   socketio.on("message", (data) => {
-    createMessage(data.name, data.message);
+    createMessage(data.name, data.message, data.isImage);
   });
 
   const sendMessage = () => {
     const message = document.getElementById("message");
-    if (message.value == "") return;
-    socketio.emit("message", { data: message.value });
-    message.value = "";
+    if (message.value.trim() !== "") {
+      socketio.emit("message", { data: message.value, isImage: false });
+      message.value = "";
+    }
   };
+
+  const sendImage = (fileInput) => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Image = reader.result;
+      socketio.emit("message", { data: base64Image, isImage: true });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Attach listener to the file input
+  document.getElementById("file-input").addEventListener("change", function () {
+    sendImage(this);
+  });
 </script>
+
+
 {% for msg in messages %}
   <script type="text/javascript">
     createMessage("{{msg.name}}", "{{msg.message}}");
