@@ -2,7 +2,7 @@
 
 Deployed on Railway Platform
 
-Check out Live Demo: https://talkshalk.up.railway.app/
+Check out Live: https://talkshalk.up.railway.app/
 
 There is no database connectivity in this project. Feel free to check out live ;)
 
