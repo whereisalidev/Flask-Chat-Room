@@ -11,7 +11,9 @@ app.config['DEBUG'] = False
 app.config['ENV'] = 'production'
 socketio = SocketIO(app, cors_allowed_origins="*", logger=True, engineio_logger=True, transports=['websocket', 'polling'])
 
+
 rooms = {}
+
 
 @app.route("/", methods=["POST", "GET"])
 def home():
